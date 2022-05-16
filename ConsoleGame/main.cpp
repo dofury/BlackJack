@@ -19,8 +19,8 @@ int main() {
 			Game game;
 			game.gameDraw();
 			game.betting();
-			game.gameDraw();
 			select = game.keyDraw();
+			game.gameDraw();
 
 		}
 		else if (select == RULE)
@@ -30,7 +30,9 @@ int main() {
 			select = rule.keyDraw();
 		}
 		else if (select == EXIT)
-			return 0;
+		{
+			exit(0);
+		}
 		else if (select == TITLE)
 		{
 			title.titleDraw();

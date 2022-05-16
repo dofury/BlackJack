@@ -2,6 +2,7 @@
 #include<Windows.h>
 #include<iostream>
 #include<conio.h>
+#include <string>
 #define TITLE 4
 using namespace std;
 Game::Game()
@@ -16,11 +17,25 @@ Game::~Game()
 }
 void Game::betting()
 {
+	string call2;
 	gotoxy(15, 27);
 	cout << "얼마를 베팅 하시겠습니까?: ";
 	gotoxy(50, 27);
-	cin >> call;
-	player.subMoney(call);
+	cin >> call2;
+	player.subMoney(stoi(call2));
+	gameDraw();
+	gotoxy(15, 27);
+	cout << "잘먹었다";
+	/*try
+	{
+		if (isdigit(stoi(call2)))
+			cout << stoi(call2);
+	}
+	catch(exception e)
+	{
+		gotoxy(15, 27);
+		cout << "경고: 숫자가 아닙니다!!!";
+	}*/
 }
 void Game::gameDraw()
 {
