@@ -2,46 +2,45 @@
 #include "Rule.h"
 #include "Game.h"
 #include<Windows.h>
-#define START 1
-#define RULE 2
-#define EXIT 3
-#define TITLE 4
 int main() {
+	Game game;
+	bool gameend = false;
 	int select;
 	Title title;
 	title.init();
-	title.titleDraw();
-	select = title.keyDraw();
-	while (1)
+	do
 	{
-		if (select == START)
-		{
-			Game game;
-			game.gameDraw();
-			game.betting();
-			select = game.keyDraw();
-			game.gameDraw();
+		title.titleDraw();
+		select = title.keyDraw();
+		switch (select) {
+			case eMenuSel_Start: 
+			{
+				game.gameStart();
 
+			}break;
+			case eMenuSel_Rule: 
+			{
+				Rule rule;
+				rule.ruleDraw();
+				select = rule.keyDraw();
+			}break;
+			case eMenuSel_Exit:
+			{
+				gameend = true;
+			}break;
 		}
-		else if (select == RULE)
-		{
-			Rule rule;
-			rule.ruleDraw();
-			select = rule.keyDraw();
-		}
-		else if (select == EXIT)
-		{
-			exit(0);
-		}
-		else if (select == TITLE)
-		{
-			title.titleDraw();
-			select = title.keyDraw();
-		}
+		switch (select) {
+		case eGameResult_WIn: {
 
-	}
+		}break;
+		case eGameResult_Loss: {
 
+		}break;
+		case eGameResult_Draw: {
 
+		}break;
+		}
+	}while (gameend == false);
 
 	return 0;
 }

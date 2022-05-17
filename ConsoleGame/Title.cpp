@@ -6,7 +6,6 @@
 #define DOWN 2
 #define SUBMIT 3
 using namespace std;
-
 void Title::init()//창크기 설정 함수
 {
 	system("mode con cols=120 lines=30 | title BLACK JACK");
@@ -79,21 +78,18 @@ void Title::gotoxy(int x, int y)
 int Title::keyControl()
 {
 	int temp;
-	if (_kbhit())
+	temp = _getch();
+	if (temp == 224)
 	{
 		temp = _getch();
-		if (temp == 224)
-		{
-			temp = _getch();
-			if (temp == 72) {
-				return UP;
-			}
-			else if (temp == 80) {
-				return DOWN;
-			}
+		if (temp == 72) {
+			return UP;
 		}
-		else if (temp == 32) {
-			return SUBMIT;
+		else if (temp == 80) {
+			return DOWN;
 		}
+	}
+	else if (temp == 32) {
+		return SUBMIT;
 	}
 }
