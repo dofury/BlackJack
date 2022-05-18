@@ -145,6 +145,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rule.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dealer.h" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Rule.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ConsoleGame.rc" />

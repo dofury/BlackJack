@@ -1,7 +1,5 @@
 #include "Title.h"
-#include<Windows.h>
-#include<iostream>
-#include<conio.h>
+#include "Utility.h"
 #define UP 1
 #define DOWN 2
 #define SUBMIT 3

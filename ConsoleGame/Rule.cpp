@@ -1,7 +1,5 @@
 #include "Rule.h"
-#include <iostream>
-#include <windows.h>
-#include <conio.h>
+#include "Utility.h"
 #define TITLE 4
 using namespace std;
 

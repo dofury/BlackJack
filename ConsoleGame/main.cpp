@@ -1,9 +1,9 @@
 #include "Title.h"
 #include "Rule.h"
 #include "Game.h"
-#include<Windows.h>
+#include "Utility.h"
+
 int main() {
-	Game game;
 	bool gameend = false;
 	int select;
 	Title title;
@@ -15,6 +15,7 @@ int main() {
 		switch (select) {
 			case eMenuSel_Start: 
 			{
+				Game game;
 				game.gameStart();
 
 			}break;

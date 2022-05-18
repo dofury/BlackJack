@@ -1,5 +1,7 @@
 #pragma once
+#define MAX 52
 #include "Player.h"
+#include "Utility.h"
 using namespace std;
 typedef enum _eGameResult {
 	eGameResult_WIn = 0,
@@ -9,6 +11,11 @@ typedef enum _eGameResult {
 	eGameResult_Exit
 
 }eGameResult;
+typedef struct __gameCard
+{
+	int number;	//카드 숫자
+	string mark;	//카드문양
+} gameCard;
 class Game
 {
 public:
@@ -16,21 +23,23 @@ public:
 	void gameStart();
 	void playerWin();
 	void dealerWin();
-	void gameDraw();
+	void gameDraw(int x,int y);
 	void gameClear();
 	void menuClear();
 	void menuDraw();
 	bool betting();
-	void cardDraw();
+	void gameLoading();
+	bool cardDraw();
+	string getDrawCNum();
+	gameCard randomCard(int turn);
 	int isAllNumber(char* input,int length);
-	int keyDraw();
 	int keyControl();
 	eGameResult getGameResult();
 	Game();
 	~Game();
 private:
-	int x, y;
-	char card[13];
+	gameCard card[MAX];
+	int cardSetAmount;
 	void gotoxy(int x, int y);
 	eGameResult gameResult;
 };
