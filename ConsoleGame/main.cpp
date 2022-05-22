@@ -4,7 +4,7 @@
 #include "Utility.h"
 
 int main() {
-	bool gameend = false;
+	bool mainEnd = false;
 	int select;
 	Title title;
 	title.init();
@@ -16,7 +16,7 @@ int main() {
 			case eMenuSel_Start: 
 			{
 				Game game;
-				game.gameStart();
+				mainEnd = game.gameStart();
 
 			}break;
 			case eMenuSel_Rule: 
@@ -27,7 +27,7 @@ int main() {
 			}break;
 			case eMenuSel_Exit:
 			{
-				gameend = true;
+				mainEnd = true;
 			}break;
 		}
 		switch (select) {
@@ -41,7 +41,7 @@ int main() {
 
 		}break;
 		}
-	}while (gameend == false);
+	}while (mainEnd == false);
 
 	return 0;
 }

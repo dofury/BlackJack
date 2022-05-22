@@ -11,6 +11,22 @@ void Utility::getUserOutput(char curValue) {
 
 }
 /**
+* 메세지출력 함수
+* @param message 입력할 메세지
+* @param time 단위:milliSeconds 메세지 출력후 지연시간 초기값:0
+*/
+void Utility::printMessage(const char* message, int time)
+{
+	gotoxy(15, 27);
+	cout << message;
+	Sleep(time);
+}
+void Utility::printGrahphic(const char* message, int x,int y)
+{
+	gotoxy(x, y);
+	cout << message;
+}
+/**
 * 입력 함수
 * @param destBuffer 문자열 입력받을 버퍼
 * @param nDestBufLength 문자열버퍼의 최대길이
@@ -70,4 +86,12 @@ int  Utility::getUserInput_s() {
 		}
 	}
 	return eGameProgress_Default;
+}
+void Utility::gotoxy(int x, int y)
+{
+	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);//콘솔 핸들가져오기
+	COORD pos;
+	pos.X = x;
+	pos.Y = y;
+	SetConsoleCursorPosition(consoleHandle, pos);
 }

@@ -1,5 +1,4 @@
 #include "Player.h"
-#include "Dealer.h"
 void Player::setMoney(int amount)
 {
 	this->money = amount;

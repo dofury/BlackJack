@@ -9,13 +9,18 @@
 #include<conio.h>
 #include<time.h>
 #include<stdlib.h>
+#include<string>
 using namespace std;
 class Utility
 {
 public:
+	int x, y;
 	int getUserInput(char* destBuffer, int nDestBufLength);
 	int getUserInput_s();
+	void printMessage(const char* message,int time=0);
+	void printGrahphic(const char* message, int x,int y);
 	void getUserOutput(char curValue);
+	void gotoxy(int x, int y);
 };
 typedef enum _eGameProgress {
 	eGameProgress_Exit = 0,

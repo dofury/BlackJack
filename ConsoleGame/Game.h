@@ -20,9 +20,10 @@ class Game
 {
 public:
 	Player player;
-	void gameStart();
+	int playerCall;
+	bool gameStart();
 	void playerWin();
-	void dealerWin();
+	void playerLoss();
 	void gameDraw(int x,int y);
 	void gameClear();
 	void menuClear();
@@ -30,17 +31,23 @@ public:
 	bool betting();
 	void gameLoading();
 	bool cardDraw();
+	bool cardACheck();
+	bool resultCheck();
 	string getDrawCNum();
-	gameCard randomCard(int turn);
+	bool randomCard();
 	int isAllNumber(char* input,int length);
 	int keyControl();
 	eGameResult getGameResult();
 	Game();
 	~Game();
 private:
+	void gameReset();
+	int cardMaxIndex;
 	gameCard card[MAX];
 	int cardSetAmount;
-	void gotoxy(int x, int y);
 	eGameResult gameResult;
+	int progress;
+	int playerResult;
+	bool gameEnd;
 };
 
