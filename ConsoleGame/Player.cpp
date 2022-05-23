@@ -28,6 +28,14 @@ int Player::getCard()
 {
 	return card;
 }
+void Player::setCardScore(int score)
+{
+	this->cardScore = score;
+}
+int Player::getCardScore()
+{
+	return cardScore;
+}
 void Player::setMark(string mark)
 {
 	this->mark = mark;

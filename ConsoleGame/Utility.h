@@ -10,6 +10,7 @@
 #include<time.h>
 #include<stdlib.h>
 #include<string>
+#include<stdarg.h>
 using namespace std;
 class Utility
 {
@@ -17,10 +18,13 @@ public:
 	int x, y;
 	int getUserInput(char* destBuffer, int nDestBufLength);
 	int getUserInput_s();
-	void printMessage(const char* message,int time=0);
+	void printMessage(int time, const char* messageFormat, ...);
+	void printMessage(const char* messageFormat,...);
 	void printGrahphic(const char* message, int x,int y);
 	void getUserOutput(char curValue);
 	void gotoxy(int x, int y);
+private:
+	void printMessage(const char* message, va_list var_list);
 };
 typedef enum _eGameProgress {
 	eGameProgress_Exit = 0,

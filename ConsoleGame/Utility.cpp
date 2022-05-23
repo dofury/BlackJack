@@ -15,11 +15,25 @@ void Utility::getUserOutput(char curValue) {
 * @param message 입력할 메세지
 * @param time 단위:milliSeconds 메세지 출력후 지연시간 초기값:0
 */
-void Utility::printMessage(const char* message, int time)
+void Utility::printMessage(int time,const char*messageFormat,...)
+{
+	va_list var_list;
+	va_start(var_list,messageFormat);
+	printMessage(messageFormat, var_list);
+	va_end(var_list);
+	Sleep(time);
+}
+void Utility::printMessage(const char* messageFormat,...)
+{
+	va_list var_list;
+	va_start(var_list, messageFormat);
+	printMessage(messageFormat, var_list);
+	va_end(var_list);
+}
+void Utility::printMessage(const char* messageFormat, va_list var_list)
 {
 	gotoxy(15, 27);
-	cout << message;
-	Sleep(time);
+	vprintf(messageFormat, var_list);
 }
 void Utility::printGrahphic(const char* message, int x,int y)
 {

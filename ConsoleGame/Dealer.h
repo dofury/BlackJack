@@ -1,7 +1,19 @@
 #pragma once
+#include "Utility.h"
 class Dealer
 {
-	int cardSum;
+private:
+	int card, cardSum,cardScore;
+	string mark;
+public:
 	void stop();
+	void setCard(int card);
+	int getCard();
+	void setCardScore(int score);
+	int getCardScore();
+	void setMark(string mark);
+	string getMark();
+	void setCardSum(int card);
+	int getCardSum();
 };
 
