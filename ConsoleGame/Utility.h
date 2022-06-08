@@ -23,6 +23,7 @@ public:
 	void printGrahphic(const char* message, int x,int y);
 	void getUserOutput(char curValue);
 	void gotoxy(int x, int y);
+	void menuClear();
 private:
 	void printMessage(const char* message, va_list var_list);
 };

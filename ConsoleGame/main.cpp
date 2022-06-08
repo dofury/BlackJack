@@ -30,17 +30,6 @@ int main() {
 				mainEnd = true;
 			}break;
 		}
-		switch (select) {
-		case eGameResult_WIn: {
-
-		}break;
-		case eGameResult_Loss: {
-
-		}break;
-		case eGameResult_Draw: {
-
-		}break;
-		}
 	}while (mainEnd == false);
 
 	return 0;

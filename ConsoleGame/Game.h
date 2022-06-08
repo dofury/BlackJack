@@ -27,15 +27,18 @@ class Game
 public:
 	Player player;
 	Dealer dealer;
-	int playerCall;
+	int playerCall,reward;
 	bool gameStart();
 	void playerWin();
 	void playerLoss();
+	void playerDraw();
+	void playerInvest();
 	void gameDraw(eMember member,int x,int y);
 	void gameClear();
 	void menuClear();
-	void menuDraw();
+	void valueUpdate();
 	bool betting();
+	bool investment();
 	void gameLoading();
 	bool playerCardDraw();
 	bool dealerCardDraw();
@@ -59,5 +62,6 @@ private:
 	eMember member;
 	int progress;
 	bool gameEnd;
+	bool invest;
 };
 

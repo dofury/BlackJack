@@ -32,6 +32,7 @@ void Utility::printMessage(const char* messageFormat,...)
 }
 void Utility::printMessage(const char* messageFormat, va_list var_list)
 {
+	menuClear();
 	gotoxy(15, 27);
 	vprintf(messageFormat, var_list);
 }
@@ -108,4 +109,24 @@ void Utility::gotoxy(int x, int y)
 	pos.X = x;
 	pos.Y = y;
 	SetConsoleCursorPosition(consoleHandle, pos);
+}
+void Utility::menuClear()
+{
+	printGrahphic("式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式", 0, 24);
+	cout << "                                                                                          \n";
+	cout << "                                                                                          \n";
+	cout << "                                                                                          \n";
+	cout << "                                                                                          \n";
+	cout << "                                                                                          ";
+	printGrahphic("詭撮雖", 3, 27);
+	printGrahphic("弛", 12, 25);
+	printGrahphic("弛", 12, 26);
+	printGrahphic("弛", 12, 27);
+	printGrahphic("弛", 12, 28);
+	printGrahphic("弛", 12, 29);
+	printGrahphic("弛", 90, 25);
+	printGrahphic("弛", 90, 26);
+	printGrahphic("弛", 90, 27);
+	printGrahphic("弛", 90, 28);
+	printGrahphic("弛", 90, 29);
 }

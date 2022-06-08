@@ -4,6 +4,8 @@ using namespace std;
 Utility util;
 Game::Game()
 {
+	invest = false;
+	gameEnd = false;
 	aCount = 0;
 	playerCall = 0;
 	cardMaxIndex = 51;
@@ -33,14 +35,18 @@ Game::~Game()
 }
 bool Game::gameStart()
 {
-	gameEnd = false;
 	while (gameEnd == false)
 	{
 		system("cls"); // 콘솔 창 청소
 		gameReset(); //게임정보 리셋
-		gameClear(); //게임 상태창
-		menuClear(); //게임 메뉴상태창
-		gameEnd = betting(); //베팅
+		gameClear(); //게임 상태창 청소
+		util.menuClear(); //게임 메뉴상태창 청소
+		valueUpdate(); //게임 스테이터스창 업데이트
+		if (invest == false)
+		{
+			gameEnd = betting(); //베팅
+		}
+		invest = false;
 		if (gameEnd == false)
 		{
 			gameLoading();
@@ -51,15 +57,18 @@ bool Game::gameStart()
 				if (gameEnd == false)
 				{
 					gameEnd = dealerCardDraw();
+
 				}
 				//a의 값을 선택한다
 				// end false 시 딜러카드를 뽑는다
 				// 딜러카드와 플레이어 카드 비교후 end
 			}
-			
+
 		}
+		
 		if (gameResult == eGameResult_Cancel)
-		{
+		{;
+			util.printMessage(1000, "게임 종료중...");
 			break;
 		}
 		else if (gameResult == eGameResult_WIn)
@@ -72,12 +81,11 @@ bool Game::gameStart()
 			playerLoss();
 			gameEnd = false;
 		}
-	}
-	if (gameResult == eGameResult_Cancel)
-	{
-		menuClear();
-		util.printMessage(1000,"게임 종료중...");
-
+		else if (gameResult == eGameResult_Draw)
+		{
+			playerDraw();
+			gameEnd = false;
+		}
 	}
 	return false;
 }
@@ -87,168 +95,98 @@ eGameResult Game::getGameResult()
 }
 string Game::getDrawCNum(eMember member)
 {
-	if (member == eGamePlayer)
+	switch (member == eGamePlayer ? player.getCard():dealer.getCard())//플레이어라면 플레이어 카드 딜러라면 딜러 카드
 	{
-		switch (player.getCard())
-		{
-			case 1:
-				{
-					return "A";
-				}break;
-			case 2:
-				{
-					return "2";
-				}break;
-			case 3:
-				{
-					return "3";
-				}break;
-			case 4:
-				{
-					return "4";
-				}break;
-			case 5:
-				{
-					return "5";
-				}break;
-			case 6:
-				{
-					return "6";
-				}break;
-			case 7:
-				{
-					return "7";
-				}break;
-			case 8:
-				{
-					return "8";
-				}break;
-			case 9:
-				{
-					return "9";
-				}break;
-			case 10:
-				{
-					return "T";
-				}break;
-			case 11:
-				{
-					return "J";
-				}break;
-			case 12:
-				{
-					return "Q";
-				}break;
-			case 13:
-				{
-					return "K";
-				}break;
-			default:
-				{
-					return "NULL";
-				}
-		}
-	}
-	else if (member == eGameDealer)
-	{ 
-		switch (dealer.getCard())
-		{
-			case 1:
-				{
-					return "A";
-				}break;
-			case 2:
-				{
-					return "2";
-				}break;
-			case 3:
-				{
-					return "3";
-				}break;
-			case 4:
-				{
-					return "4";
-				}break;
-			case 5:
-				{
-					return "5";
-				}break;
-			case 6:
-				{
-					return "6";
-				}break;
-			case 7:
-				{
-					return "7";
-				}break;
-			case 8:
-				{
-					return "8";
-				}break;
-			case 9:
-				{
-					return "9";
-				}break;
-			case 10:
-				{
-					return "T";
-				}break;
-			case 11:
-				{
-					return "J";
-				}break;
-			case 12:
-				{
-					return "Q";
-				}break;
-			case 13:
-				{
-					return "K";
-				}break;
-			default:
-				{
-					return "NULL";
-				}
-		}
-	}
-	
+		case 1:
+			{
+				return "A";
+			}break;
+		case 2:
+			{
+				return "2";
+			}break;
+		case 3:
+			{
+				return "3";
+			}break;
+		case 4:
+			{
+				return "4";
+			}break;
+		case 5:
+			{
+				return "5";
+			}break;
+		case 6:
+			{
+				return "6";
+			}break;
+		case 7:
+			{
+				return "7";
+			}break;
+		case 8:
+			{
+				return "8";
+			}break;
+		case 9:
+			{
+				return "9";
+			}break;
+		case 10:
+			{
+				return "T";
+			}break;
+		case 11:
+			{
+				return "J";
+			}break;
+		case 12:
+			{
+				return "Q";
+			}break;
+		case 13:
+			{
+				return "K";
+			}break;
+		default:
+			{
+				return "NULL";
+			}
+	}	
 }
 void Game::gameLoading()
 {
-	menuClear();
 	util.printMessage(1000,"곧 게임이 시작 됩니다...");
-	menuClear();
 	util.printMessage(1000,"3...");
-	menuClear();
 	util.printMessage(1000,"2...");
-	menuClear();
 	util.printMessage(1000,"1...");
 }
 bool Game::betting()
 {
 	char input[256];
+	playerCall = 0;
+	valueUpdate();
 	while (1)
 	{
-		menuClear();//메뉴 청소
 		util.printMessage("얼마를 베팅 하시겠습니까? :");
 		util.gotoxy(43, 27);// 입력좌표
 		if (util.getUserInput(input, ARRAY_LENGTH(input)) == false)
 			return true;
 		if (isAllNumber(input, strlen(input)) == 0 || input[0] == '\0') //예외처리
 		{
-			menuClear();
 			util.printMessage(1000,"경고: 베팅금액을 제대로 입력해주세요!!!!!( ex: 500 )");
 		}
 		else
 		{
 			if (player.subMoney(atoi(input)) == false)//
 			{
-				menuClear();//메뉴 청소
 				util.printMessage(1000,"경고: 베팅금액이 부족합니다!!!!!");
 			}
 			else//정상 작동
 			{
 				playerCall = atoi(input);
+				valueUpdate();
 				break;
 			}
 		}
@@ -278,8 +216,6 @@ void Game::gameDraw(eMember member,int x,int y)
 		cout << "    " << player.getMark();
 		util.gotoxy(x, y++);
 		cout << "└    ┘";
-		util.gotoxy(50, 1);
-		cout << "player 카드의합: " << player.getCardSum();
 	}
 	else if (member == eGameDealer)
 	{
@@ -293,8 +229,6 @@ void Game::gameDraw(eMember member,int x,int y)
 		cout << "    " << dealer.getMark();
 		util.gotoxy(x, y++);
 		cout << "└    ┘";
-		util.gotoxy(70, 1);
-		cout << "dealer 카드의합: " << dealer.getCardSum();
 	}
 }
 void Game::gameClear()
@@ -312,7 +246,7 @@ void Game::gameClear()
 	cout << "              	                                                                                                     	 \n";
 	cout << "              	                                                                                                     	 \n";
 	cout << "              	                                                                                                     	 \n";
-	cout << "              	                                                                                                     	 \n";
+	cout << "───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────";
 	cout << "              	                                                                                                     	 \n";
 	cout << "              	                                                                                                     	 \n";
 	cout << "              	                                                                                                     	 \n";
@@ -324,49 +258,48 @@ void Game::gameClear()
 }
 void Game::menuClear()
 {
-	util.gotoxy(0, 24);
-	cout << "------------------------------------------------------------------------------------------------------------------------";
-	cout << "                                                                                                                        ";
-	cout << "                                                                                                                        ";
-	cout << "                                                                                                                        ";
-	cout << "                                                                                                                        ";
-	cout << "                                                                                                                        ";
+	util.printGrahphic("───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────", 0, 24);
+	cout << "                                                                                          \n";
+	cout << "                                                                                          \n";
+	cout << "                                                                                          \n";
+	cout << "                                                                                          \n";
+	cout << "                                                                                          ";
 	util.printGrahphic("메세지", 3, 27);
-	util.printGrahphic("|", 12, 25);
-	util.printGrahphic("|", 12, 26);
-	util.printGrahphic("|", 12, 27);
-	util.printGrahphic("|", 12, 28);
-	util.printGrahphic("|", 12, 29);
-	util.gotoxy(90, 27);
-	cout << "보유 금액: " << player.getMoney();
+	util.printGrahphic("│", 12, 25);
+	util.printGrahphic("│", 12, 26);
+	util.printGrahphic("│", 12, 27);
+	util.printGrahphic("│", 12, 28);
+	util.printGrahphic("│", 12, 29);
+	util.printGrahphic("│", 90, 25);
+	util.printGrahphic("│", 90, 26);
+	util.printGrahphic("│", 90, 27);
+	util.printGrahphic("│", 90, 28);
+	util.printGrahphic("│", 90, 29);
 }
-void Game::menuDraw()
+void Game::valueUpdate()
 {
-	util.gotoxy(0, 24);
-	cout << "------------------------------------------------------------------------------------------------------------------------";
-	util.gotoxy(3, 27);
-	cout << "메세지";
-	util.gotoxy(12, 25);
-	cout << "|";
-	util.gotoxy(12, 26);
-	cout << "|";
-	util.gotoxy(12, 27);
-	cout << "|";
-	util.gotoxy(12, 28);
-	cout << "|";
-	util.gotoxy(12, 29);
-	cout << "|";
-	util.gotoxy(90, 27);
+	reward = playerCall * 2;
+	util.printGrahphic("                     ", 1, 13);
+	util.gotoxy(1, 13);
+	cout << "PLAYER 카드의 합: " << player.getCardSum();
+	util.printGrahphic("                     ", 1, 1);
+	util.gotoxy(1, 1);
+	cout << "DEALER 카드의 합: " << dealer.getCardSum();
+	util.printGrahphic("                     ", 98, 26);
+	util.gotoxy(98, 26);
+	cout << "보상: " << reward;
+	util.printGrahphic("                     ", 98, 28);
+	util.gotoxy(98, 28);
 	cout << "보유 금액: " << player.getMoney();
 }
 bool Game::playerCardDraw()
 {
-	int count = 0;
+	int cardX = 1, cardY = 16;
 	bool drawRepeat = true;
 	char input[256];
 	do
 	{
-		menuClear();
+		util.menuClear();
 		if (drawRepeat == true)
 		{
 			if (randomCard(eGamePlayer) == true)
@@ -378,11 +311,12 @@ bool Game::playerCardDraw()
 					tempCard = player.getCard();
 				cardACount();
 				player.setCardSum(player.getCardSum() + tempCard);
-				gameDraw(eGamePlayer,1, 1);
+				valueUpdate();
+				gameDraw(eGamePlayer,cardX, cardY);
 				drawRepeat = false;
-				count++;
 				if (resultCheck(eGamePlayer) == false)//버스트 체크 함수
 					return true;
+				cardX += 7;//카드 위치 변경
 			}
 
 			else if (randomCard(eGamePlayer) == false)
@@ -408,12 +342,20 @@ bool Game::playerCardDraw()
 }
 bool Game::dealerCardDraw()//ai
 {
-	int count = 0;
 	bool drawRepeat = true;
-	char input[256];
+	int cardX = 1, cardY = 4;
+	menuClear();
+	util.printMessage(200, "딜");
+	util.printMessage(200, "딜러");
+	util.printMessage(200, "딜러의");
+	util.printMessage(200, "딜러의 차");
+	util.printMessage(200, "딜러의 차례");
+	util.printMessage(200, "딜러의 차례.");
+	util.printMessage(200, "딜러의 차례..");
+	util.printMessage(200, "딜러의 차례...");
 	do
 	{
-		menuClear();
+		util.menuClear();
 		if (drawRepeat == true)
 		{
 			if (randomCard(eGameDealer) == true)
@@ -423,11 +365,12 @@ bool Game::dealerCardDraw()//ai
 					tempCard = 10;
 				else
 					tempCard = dealer.getCard();
-				cardACount();
+				//cardACount();딜러의 aCount
 				dealer.setCardSum(dealer.getCardSum() + tempCard);
-				gameDraw(eGameDealer,10, 1);
+				valueUpdate();
+				gameDraw(eGameDealer,cardX, cardY);
+				cardX += 7;//카드 위치 변경
 				drawRepeat = false;
-				count++;
 			}
 
 			else if (randomCard(eGameDealer) == false)
@@ -438,14 +381,18 @@ bool Game::dealerCardDraw()//ai
 		}
 		else
 		{
-			util.printMessage("딜러가 판단중...");
+			util.printMessage(400,"진행중");
+			util.printMessage(400,"진행중.");
+			util.printMessage(400,"진행중..");
+			util.printMessage(400,"진행중...");
 			if (dealer.getCardSum() < 17) //카드합이 17보다 작다면 반복
 			{
 				drawRepeat = true;
-				Sleep(3000);
+				Sleep(1000);
 			}		
 			else// 카드합이 17보다 크다면 stop
 			{
+				Sleep(1000);
 				if (resultCheck(eGameDealer) == false)
 					break;
 			}
@@ -499,22 +446,25 @@ bool Game::cardACheck()
 	int checkCnt = 1;
 	while (checkCnt<=aCount)
 	{
-		util.printMessage("%d번째 A의 값을 1과 11중 선택해주십시오 <- [1] -> [10]",checkCnt);
+		util.printMessage("%d번째 A의 값에 10을 더하시겠습니까? <- [NO] [YES] ->",checkCnt);
 		progress = util.getUserInput_s();
 		if (progress == eGameProgress_Exit)
 			return eGameResult_Exit;
-		else if (progress == eGameProgress_Select1)//1을 선택시
+		else if (progress == eGameProgress_Select1)//NO를 선택시
 			player.setCardSum(player.getCardSum());//그대로
-		else if (progress == eGameProgress_Select2)//11을 선택시
+		else if (progress == eGameProgress_Select2)//YES를 선택시
 		{
 			if ((player.getCardSum() + 10) > 21)
 			{
-				menuClear();
-				util.printMessage(1000,"선택시 버스트가 되므로 자동으로 1로 선택됩니다");
+				util.printMessage(1000,"선택시 버스트가 되므로 자동으로 NO로 선택됩니다");
 			}
 			else
+			{
 				player.setCardSum(player.getCardSum() + 10);//11로한다
+				valueUpdate();
+			}
 		}
+		if(resultCheck(eGamePlayer) == true)//10을 더할시 조건판별
 		checkCnt++;
 	}
 	return false;
@@ -526,9 +476,22 @@ void Game::cardACount()
 		aCount++;
 	}
 }
+bool Game::investment()
+{
+	util.printMessage(2000, "다음 게임에서 승리할 시 투자하신돈의 3배를 받으실 수 있습니다");
+	util.printMessage("지금 보상을 받지않고 투자하시겠습니까? <- [NO] [YES] ->");
+	progress = util.getUserInput_s();
+	if (progress == eGameProgress_Select1)//NO를 선택시
+		return false;
+	else if (progress == eGameProgress_Select2)//YES를 선택시
+	{
+		playerCall *= 3;
+		invest = true;
+		return true;
+	}
+}
 bool Game::resultCheck(eMember member)
 {
-	menuClear();
 	if (member == eGamePlayer)
 	{
 		if (player.getCardSum() > 21)
@@ -542,7 +505,7 @@ bool Game::resultCheck(eMember member)
 		{
 			gameEnd = true;
 			gameResult = eGameResult_WIn;
-			util.printMessage(2000, "21이 되어 승리하셨습니다 2배 payback 됩니다");
+			util.printMessage(2000, "21이 되어 승리하셨습니다");
 			return false;
 		}
 		else
@@ -589,17 +552,31 @@ bool Game::resultCheck(eMember member)
 }
 void Game::playerWin()
 {
-	menuClear();
-	util.printMessage(2000,"승리 축하");
-	player.setMoney(player.getMoney() + (2 * playerCall));
+	if (investment() == false)
+	{
+		util.printMessage(2000, "승리 축하드립니다");
+		player.setMoney(player.getMoney() + (2 * playerCall));
+		valueUpdate();
+	}
 }
 void Game::playerLoss()
 {
-	menuClear();
 	util.printMessage(2000,"ㅉㅉ 돈잃음");
+}
+void Game::playerDraw()
+{
+	util.printMessage(2000, "무승부");
+	player.setMoney(player.getMoney() + playerCall);
+	valueUpdate();
+}
+void Game::playerInvest()
+{;
+	util.printMessage(2000, "투자를 시작합니다");
+	invest = true;
 }
 void Game::gameReset()
 {
+	reward = 0;
 	player.setCardSum(0);
 	dealer.setCardSum(0);
 	aCount = 0;
