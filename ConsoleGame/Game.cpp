@@ -258,37 +258,37 @@ void Game::gameClear()
 }
 void Game::menuClear()
 {
-	util.printGrahphic("式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式", 0, 24);
+	util.printGraphic("式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式", 0, 24);
 	cout << "                                                                                          \n";
 	cout << "                                                                                          \n";
 	cout << "                                                                                          \n";
 	cout << "                                                                                          \n";
 	cout << "                                                                                          ";
-	util.printGrahphic("詭撮雖", 3, 27);
-	util.printGrahphic("弛", 12, 25);
-	util.printGrahphic("弛", 12, 26);
-	util.printGrahphic("弛", 12, 27);
-	util.printGrahphic("弛", 12, 28);
-	util.printGrahphic("弛", 12, 29);
-	util.printGrahphic("弛", 90, 25);
-	util.printGrahphic("弛", 90, 26);
-	util.printGrahphic("弛", 90, 27);
-	util.printGrahphic("弛", 90, 28);
-	util.printGrahphic("弛", 90, 29);
+	util.printGraphic("詭撮雖", 3, 27);
+	util.printGraphic("弛", 12, 25);
+	util.printGraphic("弛", 12, 26);
+	util.printGraphic("弛", 12, 27);
+	util.printGraphic("弛", 12, 28);
+	util.printGraphic("弛", 12, 29);
+	util.printGraphic("弛", 90, 25);
+	util.printGraphic("弛", 90, 26);
+	util.printGraphic("弛", 90, 27);
+	util.printGraphic("弛", 90, 28);
+	util.printGraphic("弛", 90, 29);
 }
 void Game::valueUpdate()
 {
 	reward = playerCall * 2;
-	util.printGrahphic("                     ", 1, 13);
+	util.printGraphic("                     ", 1, 13);
 	util.gotoxy(1, 13);
 	cout << "PLAYER 蘋萄曖 м: " << player.getCardSum();
-	util.printGrahphic("                     ", 1, 1);
+	util.printGraphic("                     ", 1, 1);
 	util.gotoxy(1, 1);
 	cout << "DEALER 蘋萄曖 м: " << dealer.getCardSum();
-	util.printGrahphic("                     ", 98, 26);
+	util.printGraphic("                     ", 98, 26);
 	util.gotoxy(98, 26);
 	cout << "爾鼻: " << reward;
-	util.printGrahphic("                     ", 98, 28);
+	util.printGraphic("                     ", 98, 28);
 	util.gotoxy(98, 28);
 	cout << "爾嶸 旎擋: " << player.getMoney();
 }
@@ -431,16 +431,6 @@ bool Game::randomCard(eMember member)
 		return true;
 	}
 }
-int Game::keyControl()
-{
-	int temp;
-	temp = _getch();
-	if (temp == KEY_ESC)
-	{
-		return 1;
-	}
-	return 0;
-}
 bool Game::cardACheck()
 {
 	int checkCnt = 1;
@@ -561,11 +551,11 @@ void Game::playerWin()
 }
 void Game::playerLoss()
 {
-	util.printMessage(2000,"允允 絲檠擠");
+	util.printMessage(2000,"絲擊 檠戲樟蝗棲棻");
 }
 void Game::playerDraw()
 {
-	util.printMessage(2000, "鼠蝓睡");
+	util.printMessage(2000, "鼠蝓睡 ж樟蝗棲棻");
 	player.setMoney(player.getMoney() + playerCall);
 	valueUpdate();
 }

@@ -6,7 +6,6 @@ private:
 	int money, card, cardSum,cardScore;
 	string mark;
 
-	void stop();
 public:
 	void setMoney(int amount);
 	bool subMoney(int amount);

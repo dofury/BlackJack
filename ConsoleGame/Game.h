@@ -48,12 +48,11 @@ public:
 	string getDrawCNum(eMember member);
 	bool randomCard(eMember member);
 	int isAllNumber(char* input,int length);
-	int keyControl();
 	eGameResult getGameResult();
+	void gameReset();
 	Game();
 	~Game();
 private:
-	void gameReset();
 	int cardMaxIndex;
 	int aCount;
 	gameCard card[MAX];

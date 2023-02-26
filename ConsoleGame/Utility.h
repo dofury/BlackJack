@@ -20,7 +20,7 @@ public:
 	int getUserInput_s();
 	void printMessage(int time, const char* messageFormat, ...);
 	void printMessage(const char* messageFormat,...);
-	void printGrahphic(const char* message, int x,int y);
+	void printGraphic(const char* message, int x,int y);
 	void getUserOutput(char curValue);
 	void gotoxy(int x, int y);
 	void menuClear();

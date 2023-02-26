@@ -36,7 +36,7 @@ void Utility::printMessage(const char* messageFormat, va_list var_list)
 	gotoxy(15, 27);
 	vprintf(messageFormat, var_list);
 }
-void Utility::printGrahphic(const char* message, int x,int y)
+void Utility::printGraphic(const char* message, int x,int y)
 {
 	gotoxy(x, y);
 	cout << message;
@@ -112,21 +112,21 @@ void Utility::gotoxy(int x, int y)
 }
 void Utility::menuClear()
 {
-	printGrahphic("───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────", 0, 24);
+	printGraphic("───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────", 0, 24);
 	cout << "                                                                                          \n";
 	cout << "                                                                                          \n";
 	cout << "                                                                                          \n";
 	cout << "                                                                                          \n";
 	cout << "                                                                                          ";
-	printGrahphic("메세지", 3, 27);
-	printGrahphic("│", 12, 25);
-	printGrahphic("│", 12, 26);
-	printGrahphic("│", 12, 27);
-	printGrahphic("│", 12, 28);
-	printGrahphic("│", 12, 29);
-	printGrahphic("│", 90, 25);
-	printGrahphic("│", 90, 26);
-	printGrahphic("│", 90, 27);
-	printGrahphic("│", 90, 28);
-	printGrahphic("│", 90, 29);
+	printGraphic("메세지", 3, 27);
+	printGraphic("│", 12, 25);
+	printGraphic("│", 12, 26);
+	printGraphic("│", 12, 27);
+	printGraphic("│", 12, 28);
+	printGraphic("│", 12, 29);
+	printGraphic("│", 90, 25);
+	printGraphic("│", 90, 26);
+	printGraphic("│", 90, 27);
+	printGraphic("│", 90, 28);
+	printGraphic("│", 90, 29);
 }

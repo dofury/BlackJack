@@ -6,7 +6,6 @@ private:
 	int card, cardSum,cardScore;
 	string mark;
 public:
-	void stop();
 	void setCard(int card);
 	int getCard();
 	void setCardScore(int score);
